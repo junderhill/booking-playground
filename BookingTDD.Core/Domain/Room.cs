@@ -4,7 +4,7 @@ using BookingTDD.Core.Domain;
 
 namespace BookingTDD.Core
 {
-    public class Room
+    public class Room : IRoom
     {
         public Room(int id, string description, int capacity)
         {

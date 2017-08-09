@@ -1,43 +1,48 @@
 ﻿using System;
-using System.Collections.Generic;
 using BookingTDD.Core.Domain;
 using BookingTDD.Core.Exceptions;
+using Moq;
 using Xunit;
 using Should;
 
 namespace BookingTDD.Core.Tests
 {
-    public class CheckAvailibilityOnBookingTests
+    public class BookingCreationTests
     {
         private static readonly DateTime BookingDate = new DateTime(2018, 01, 01, 10, 00, 00);
 
         [Fact]
-        public void ShouldSucceedIfBookingRoomAvailable()
+        public void CanCreateABookingIfTheRoomIsAvailible()
         {
             //arrange
-            var room = new Room(1,"Conference room", 100);
+            var room = GetMockRoomWhereIsAvailibleEquals(true);
             //act
-            var booking = Booking.Create(BookingDate, BookingDate.AddHours(2), room);
+            var booking = Booking.Create(BookingDate, BookingDate.AddHours(2), room.Object);
             //assert
             booking.ShouldNotBeNull();
         }
+
 
         [Fact]
         public void ShouldThrowRoomNotAvailableExceptionIfNotAvailable()
         {
             //arrange
-            var room = new Room(1, "Conference room", 100);
-            room.Bookings = new List<Booking>()
-            {
-                new Booking(BookingDate, BookingDate.AddHours(2), room)
-            };
+            var room = GetMockRoomWhereIsAvailibleEquals(false);
+            
             //act
             var exception = Record.Exception(() => { 
-                Booking.Create(BookingDate, BookingDate.AddHours(2), room);
+                Booking.Create(BookingDate, BookingDate.AddHours(2), room.Object);
             });
             //assert
             exception.ShouldNotBeNull();
             exception.ShouldBeType<RoomNotAvailableException>();
+        }
+        
+        private static Mock<IRoom> GetMockRoomWhereIsAvailibleEquals(bool roomIsAvailible)
+        {
+            var room = new Mock<IRoom>();
+            room.Setup(r => r.IsAvailable(It.IsAny<DateTime>(), It.IsAny<DateTime>())).Returns(roomIsAvailible);
+            return room;
         }
     }
 }
