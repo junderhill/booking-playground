@@ -17,9 +17,9 @@ namespace BookingTDD.Core.Domain
         public string Description { get; private set; }
         public List<Booking> Bookings { get; set; }
 
-        public bool IsAvailable(BookingPeriod bookingPeriod)
+        public bool IsAvailable(BookingPeriod requestedBookingPeriod)
         {
-            return !Bookings.Any(b => b.BookingPeriod.Start <= bookingPeriod.Start && b.BookingPeriod.Start <= bookingPeriod.End);
+            return !Bookings.Any(b => b.BookingPeriod.OverlappedBy(requestedBookingPeriod));
         }
     }
 }
