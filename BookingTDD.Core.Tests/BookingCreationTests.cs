@@ -17,7 +17,7 @@ namespace BookingTDD.Core.Tests
             //arrange
             var room = GetMockRoomWhereIsAvailibleEquals(true);
             //act
-            var booking = Booking.Create(BookingDate, BookingDate.AddHours(2), room.Object);
+            var booking = Booking.Create(new BookingPeriod(BookingDate, BookingDate.AddHours(2)), room.Object);
             //assert
             booking.ShouldNotBeNull();
         }
@@ -31,7 +31,7 @@ namespace BookingTDD.Core.Tests
             
             //act
             var exception = Record.Exception(() => { 
-                Booking.Create(BookingDate, BookingDate.AddHours(2), room.Object);
+                Booking.Create(new BookingPeriod(BookingDate, BookingDate.AddHours(2)), room.Object);
             });
             //assert
             exception.ShouldNotBeNull();
@@ -41,7 +41,7 @@ namespace BookingTDD.Core.Tests
         private static Mock<IRoom> GetMockRoomWhereIsAvailibleEquals(bool roomIsAvailible)
         {
             var room = new Mock<IRoom>();
-            room.Setup(r => r.IsAvailable(It.IsAny<DateTime>(), It.IsAny<DateTime>())).Returns(roomIsAvailible);
+            room.Setup(r => r.IsAvailable(It.IsAny<BookingPeriod>())).Returns(roomIsAvailible);
             return room;
         }
     }

@@ -1,8 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using BookingTDD.Core.Domain;
+﻿using System.Collections.Generic;
+using System.Linq;
 
-namespace BookingTDD.Core
+namespace BookingTDD.Core.Domain
 {
     public class Room : IRoom
     {
@@ -18,9 +17,9 @@ namespace BookingTDD.Core
         public string Description { get; private set; }
         public List<Booking> Bookings { get; set; }
 
-        public bool IsAvailable(DateTime start, DateTime end)
+        public bool IsAvailable(BookingPeriod bookingPeriod)
         {
-            throw new NotImplementedException();
+            return !Bookings.Any(b => b.BookingPeriod.Start <= bookingPeriod.Start && b.BookingPeriod.Start <= bookingPeriod.End);
         }
     }
 }
