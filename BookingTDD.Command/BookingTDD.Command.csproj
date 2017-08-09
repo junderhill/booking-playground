@@ -42,7 +42,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Events\BaseEvent.cs" />
+    <Compile Include="Events\BookingCreatedEvent.cs" />
+    <Compile Include="Handlers\BaseHandler.cs" />
     <Compile Include="Handlers\CreateBookingHandler.cs" />
+    <Compile Include="IDomainEvents.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RepositoryContracts\IBookingRepository.cs" />
     <Compile Include="RepositoryContracts\IRoomRepository.cs" />
