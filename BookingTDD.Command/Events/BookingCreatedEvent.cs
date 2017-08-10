@@ -10,5 +10,9 @@ namespace BookingTDD.Command.Events
         {
             _booking = booking;
         }
+
+        public override void Handle()
+        {
+        }
     }
 }

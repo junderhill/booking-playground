@@ -12,7 +12,9 @@ namespace BookingTDD.Command.Handlers
          private readonly IBookingRepository _bookingRepository;
          private readonly IRoomRepository _roomRepository;
  
-         public CreateBookingHandler(IBookingRepository bookingRepository, IRoomRepository roomRepository, IDomainEvents domainEvents) : base(domainEvents)
+         public CreateBookingHandler(IBookingRepository bookingRepository, 
+             IRoomRepository roomRepository, 
+             IDomainEvents domainEvents) : base(domainEvents)
          {
              _bookingRepository = bookingRepository;
              _roomRepository = roomRepository;
@@ -21,7 +23,7 @@ namespace BookingTDD.Command.Handlers
          public Booking Handle(CreateBookingRequest message)
          {
              var room = _roomRepository.GetRoomById(message.RoomId);
-             
+
              var bookingPeriod = new BookingPeriod(message.StartTime, message.EndTime);
              var booking = Booking.Create(bookingPeriod, room);
  
