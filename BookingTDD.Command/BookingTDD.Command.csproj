@@ -43,16 +43,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApplicationDomainEventHandling\DomainEvents.cs" />
+    <Compile Include="ApplicationDomainEventHandling\Events\BaseEvent.cs" />
+    <Compile Include="ApplicationDomainEventHandling\Events\BookingCreatedEvent.cs" />
     <Compile Include="ApplicationDomainEventHandling\IDomainEvents.cs" />
-    <Compile Include="Events\BaseEvent.cs" />
-    <Compile Include="Events\BookingCreatedEvent.cs" />
     <Compile Include="ExternalAdapterContracts\ISendEmail.cs" />
-    <Compile Include="Handlers\BaseHandler.cs" />
-    <Compile Include="Handlers\CreateBookingHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RepositoryContracts\IBookingRepository.cs" />
     <Compile Include="RepositoryContracts\IRoomRepository.cs" />
     <Compile Include="Requests\CreateBookingRequest.cs" />
+    <Compile Include="Requests\Handlers\BaseHandler.cs" />
+    <Compile Include="Requests\Handlers\CreateBookingHandler.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
